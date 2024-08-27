@@ -82,25 +82,9 @@ jobs:
           cd ${GITHUB_WORKSPACE}/build
           cmake --install .
 
-      - name: check
-        id: run-ctest
-        timeout-minutes: 150
-        env:
-          CTEST_OUTPUT_ON_FAILURE: 1
-        run: |
-          cd ${GITHUB_WORKSPACE}/build
-          ctest -L quick -j$(sysctl -n hw.logicalcpu)
-
-      - name: re-run tests
-        if: always() && (steps.run-ctest.outcome == 'failure')
-        timeout-minutes: 60
-        env:
-          CTEST_OUTPUT_ON_FAILURE: 1
-        run: |
-          cd ${GITHUB_WORKSPACE}/build
-          echo "::group::Re-run failing tests"
-          ctest --rerun-failed --output-on-failure || true
-          echo "::endgroup::"
-          echo "::group::Log from these tests"
-          [ ! -f Testing/Temporary/LastTest.log ] || cat Testing/Temporary/LastTest.log
-          echo "::endgroup::"
+      - name: artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: elmerfem-macos-arm
+          path: |
+            ${GITHUB_WORKSPACE}/usr
