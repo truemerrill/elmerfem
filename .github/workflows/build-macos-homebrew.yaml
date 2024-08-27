@@ -83,11 +83,11 @@ jobs:
           cmake --install .
 
       - name: verify-directory
-        run: ls -la ${GITHUB_WORKSPACE}/elmerfem/elmerfem/usr
+        run: ls -la ${GITHUB_WORKSPACE}/usr
 
       - name: artifact
         uses: actions/upload-artifact@v4
         with:
           name: elmerfem-macos-arm
           path: |
-            "${GITHUB_WORKSPACE}/elmerfem/elmerfem/usr"
+            "${GITHUB_WORKSPACE}/usr"
