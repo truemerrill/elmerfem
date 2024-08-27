@@ -82,12 +82,15 @@ jobs:
           cd ${GITHUB_WORKSPACE}/build
           cmake --install .
 
-      - name: verify-directory
-        run: ls -la ${GITHUB_WORKSPACE}/usr
-
+      - name: package
+        run: |
+          cd ${GITHUB_WORKSPACE}/build
+          ls -la ${GITHUB_WORKSPACE}/usr
+          tar -czf ${GITHUB_WORKSPACE}/build/elmerfem-macos-arm.tar.gz -C ${GITHUB_WORKSPACE} usr
+          
       - name: artifact
         uses: actions/upload-artifact@v4
         with:
           name: elmerfem-macos-arm
           path: |
-            "${GITHUB_WORKSPACE}/usr"
+            "${GITHUB_WORKSPACE}/build/elmerfem-macos-arm.tar.gz"
