@@ -87,4 +87,4 @@ jobs:
         with:
           name: elmerfem-macos-arm
           path: |
-            ${GITHUB_WORKSPACE}/usr
+            "/Users/runner/work/elmerfem/elmerfem/usr"
